@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import * as actions from "./store/actions/actions";
+import { getStore } from "./store/index";
+import { FETCH_USER_TWEETS} from "./store/constants";
 
-function App() {
+const store = getStore();
+
+export default function App() {
+  const [value, setValue] = useState("");
+
+  const handleClick = () => {
+    store.dispatch({
+      type: FETCH_USER_TWEETS,
+      payload: value
+    });
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <form>
+      <label>
+        Name:
+        <input
+          type="text"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+        />
+      </label>
+      <button type="submit" onClick={handleClick}>
+        Get Tweets
+      </button>
+    </form>
   );
 }
-
-export default App;
