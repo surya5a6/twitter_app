@@ -36,6 +36,8 @@ const fetchUserTweetsEpic = (action$) => {
           }
         });
         return from(request);
+
+        // need to update the request
       };
       return getRequest(action.user).pipe(
         map((payload) => {
